@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EchoZa</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="music.css">
+</head>
+<body>
+    <div class="app-shell" id="appShell">
+        <header class="topbar">
+            <div class="brand-cluster">
+                <button class="icon-pill brand-mark" type="button" aria-label="EchoZa home">
+                    <i class="fas fa-wave-square"></i>
+                </button>
+                <button class="icon-pill" type="button" aria-label="Home">
+                    <i class="fas fa-house"></i>
+                </button>
+                <label class="search-pill" for="searchInput">
+                    <i class="fas fa-magnifying-glass"></i>
+                    <input type="text" id="searchInput" placeholder="Search songs, artists, or moods">
+                    <span class="search-shortcut">/</span>
+                </label>
+            </div>
+            <nav class="top-links">
+                <a href="#discoverSection">Home</a>
+                <a href="#librarySection">Library</a>
+                <a href="#syncSection">Collection</a>
+            </nav>
+            <div class="top-actions">
+                <button class="ghost-btn" id="newMixBtn" type="button">New Mix</button>
+                <button class="ghost-btn" id="favoritesTopBtn" type="button">Favorites</button>
+                <button class="ghost-btn" id="refreshLibraryBtn" type="button">Refresh library</button>
+                <button class="ghost-btn" id="signupBtn" type="button">Sign up</button>
+                <button class="solid-btn" id="loginBtn" type="button">Log in</button>
+            </div>
+        </header>
+
+        <div class="workspace">
+            <aside class="sidebar">
+                <section class="panel sidebar-panel">
+                    <div class="panel-heading">
+                        <h2>Your Library</h2>
+                        <button class="round-btn" id="createPlaylistQuickBtn" type="button" title="Create playlist">
+                            <i class="fas fa-plus"></i>
+                        </button>
+                    </div>
+
+                    <article class="library-callout">
+                        <h3>Start your collection</h3>
+                        <p>Save songs you like and keep your go-to picks close.</p>
+                        <div class="callout-actions">
+                            <button class="pill-btn" id="saveCurrentBtn" type="button">Save current song</button>
+                            <button class="ghost-pill-btn" id="createPlaylistBtn" type="button">Create playlist</button>
+                        </div>
+                    </article>
+
+                    <article class="library-callout alt">
+                        <h3>Download songs</h3>
+                        <p>Save the track that is playing right now directly to your device.</p>
+                        <button class="pill-btn alt-btn" id="downloadCurrentBtn" type="button">Download current song</button>
+                    </article>
+
+                    <div class="sidebar-subtitle">Quick filters</div>
+                    <div class="chip-list" id="filterChips"></div>
+
+                    <div class="sidebar-subtitle">Recent searches</div>
+                    <div class="search-history-list" id="searchHistoryList"></div>
+
+                    <div class="sidebar-subtitle-row">
+                        <div class="sidebar-subtitle">Your playlists</div>
+                        <button class="small-link-btn" id="createPlaylistLinkBtn" type="button">Create</button>
+                    </div>
+                    <div class="playlist-list" id="playlistList"></div>
+
+                    <div class="sidebar-subtitle">Liked songs</div>
+                    <div class="mini-list" id="favoritesList"></div>
+                </section>
+            </aside>
+
+            <main class="main-view">
+                <section class="hero panel" id="discoverSection">
+                    <div class="hero-copy">
+                        <p class="eyebrow">EchoZa</p>
+                        <h1>Your music, arranged your way.</h1>
+                        <p class="hero-text">
+                            EchoZa keeps the layout clean, gives every song card its own color blend, and lets your local library grow without editing every track by hand.
+                        </p>
+                        <div class="hero-actions">
+                            <button class="hero-primary" id="playFeaturedBtn" type="button">Play first track</button>
+                            <button class="hero-secondary" id="showAllBtn" type="button">Browse all songs</button>
+                        </div>
+                    </div>
+
+                    <div class="hero-art" id="heroArt">
+                        <div class="hero-stat">
+                            <span id="songCount">0</span>
+                            <small>tracks ready</small>
+                        </div>
+                        <div class="hero-stat">
+                            <span id="artistCount">0</span>
+                            <small>artists</small>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="panel sync-panel" id="syncSection">
+                    <div>
+                        <p class="eyebrow">Sound Capsule</p>
+                        <h2>Your collection at a glance</h2>
+                        <p>
+                            A quick snapshot of the music living inside EchoZa right now, with its own mood instead of plain setup text.
+                        </p>
+                    </div>
+                    <div class="capsule-grid">
+                        <div class="sync-meta">
+                            <strong>Library pulse</strong>
+                            <span id="syncStatus">Waiting for library...</span>
+                        </div>
+                        <div class="sync-meta alt">
+                            <strong>Palette note</strong>
+                            <span id="capsuleNote">Loading your mix...</span>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="panel recommendation-panel" id="recommendationSection">
+                    <div class="section-header">
+                        <div>
+                            <p class="eyebrow">Recommended For You</p>
+                            <h2>Fresh picks for this login</h2>
+                            <p class="section-subtitle">A reshuffled set that updates whenever a user starts a new session.</p>
+                        </div>
+                        <button class="text-link" id="refreshRecommendationsBtn" type="button">Shuffle picks</button>
+                    </div>
+                    <div class="song-row recommendation-row" id="recommendationGrid"></div>
+                </section>
+
+                <section class="catalog-sections" id="catalogSections"></section>
+
+                <section class="panel full-library" id="librarySection">
+                    <div class="panel-heading">
+                        <h2 id="libraryHeading">All songs</h2>
+                        <button class="text-link" id="resetSearchBtn" type="button">Reset</button>
+                    </div>
+                    <div class="song-grid" id="songGrid"></div>
+                </section>
+            </main>
+        </div>
+    </div>
+
+    <footer class="player-bar" id="playerBar">
+        <div class="now-playing">
+            <div class="cover-orb" id="playerCover"></div>
+            <div class="track-meta">
+                <strong id="currentSongTitle">Choose a song</strong>
+                <span id="currentSongArtist">Local collection</span>
+            </div>
+        </div>
+
+        <div class="player-center">
+            <div class="player-controls">
+                <button class="control-btn" id="prevBtn" type="button" aria-label="Previous">
+                    <i class="fas fa-backward-step"></i>
+                </button>
+                <button class="play-main" id="playPauseBtn" type="button" aria-label="Play or pause">
+                    <i class="fas fa-play" id="playIcon"></i>
+                </button>
+                <button class="control-btn" id="nextBtn" type="button" aria-label="Next">
+                    <i class="fas fa-forward-step"></i>
+                </button>
+            </div>
+            <div class="progress-wrap">
+                <span id="currentTime">0:00</span>
+                <div class="progress-bar" id="progressBar">
+                    <div class="progress-fill" id="progress"></div>
+                </div>
+                <span id="totalTime">0:00</span>
+            </div>
+        </div>
+
+        <div class="player-side">
+            <button class="icon-action" id="likeBtn" type="button" title="Like current song">
+                <i class="fas fa-heart"></i>
+            </button>
+            <button class="icon-action" id="queuePlayBtn" type="button" title="Open a playlist to add songs">
+                <i class="fas fa-list-ul"></i>
+            </button>
+        </div>
+    </footer>
+
+    <div class="modal-backdrop hidden" id="playlistModal">
+        <div class="modal-card">
+            <div class="panel-heading">
+                <h2>Create Playlist</h2>
+                <button class="round-btn" id="closePlaylistModalBtn" type="button" aria-label="Close">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <form id="playlistForm" class="playlist-form">
+                <input id="playlistNameInput" type="text" placeholder="Playlist name" maxlength="40" required>
+                <label class="playlist-check">
+                    <input id="includeCurrentSongInput" type="checkbox">
+                    <span>Include currently playing song</span>
+                </label>
+                <button class="pill-btn" type="submit">Create playlist</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="modal-backdrop hidden" id="authModal">
+        <div class="auth-modal-scene" aria-hidden="true">
+            <div class="auth-vinyl auth-vinyl-left"></div>
+            <div class="auth-vinyl auth-vinyl-right"></div>
+            <div class="auth-wave auth-wave-top"></div>
+            <div class="auth-wave auth-wave-bottom"></div>
+            <div class="auth-eq-bars">
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <div class="auth-note auth-note-left">
+                <span class="auth-note-stem"></span>
+                <span class="auth-note-head auth-note-head-main"></span>
+                <span class="auth-note-head auth-note-head-alt"></span>
+            </div>
+            <div class="auth-note auth-note-right">
+                <span class="auth-note-stem"></span>
+                <span class="auth-note-head auth-note-head-main"></span>
+                <span class="auth-note-head auth-note-head-alt"></span>
+            </div>
+        </div>
+        <div class="modal-card">
+            <div class="auth-brand-hero">
+                <div class="auth-brand-mark" aria-hidden="true">
+                    <span class="auth-brand-core"></span>
+                    <span class="auth-brand-ring auth-brand-ring-one"></span>
+                    <span class="auth-brand-ring auth-brand-ring-two"></span>
+                    <span class="auth-brand-spark auth-brand-spark-one"></span>
+                    <span class="auth-brand-spark auth-brand-spark-two"></span>
+                </div>
+                <div class="auth-brand-copy">
+                    <p class="auth-brand-kicker">EchoZa access</p>
+                    <h1 class="auth-brand-title">EchoZa</h1>
+                    <p class="auth-brand-text">A colorful music space with a bright, glossy identity built right into the sign in experience.</p>
+                </div>
+            </div>
+            <div class="panel-heading">
+                <h2 id="authTitle">Log in</h2>
+                <button class="round-btn" id="closeAuthModalBtn" type="button" aria-label="Close">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <form id="authForm" class="playlist-form">
+                <input id="authNameInput" type="text" placeholder="Your name">
+                <input id="authEmailInput" type="email" placeholder="Email" required>
+                <input id="authPasswordInput" type="password" placeholder="Password" required>
+                <button class="pill-btn" id="authSubmitBtn" type="submit">Log in</button>
+            </form>
+            <button class="small-link-btn auth-switch-btn" id="authSwitchBtn" type="button">Need an account? Sign up</button>
+        </div>
+    </div>
+
+    <script src="songs/library.js"></script>
+    <script src="music.js"></script>
+</body>
+</html>
